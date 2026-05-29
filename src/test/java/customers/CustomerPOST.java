@@ -16,17 +16,17 @@ import static org.hamcrest.Matchers.equalTo;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class CustomerPOST {
     public static int id;
+
     @Test
     public static void shouldCreateCustomerSuccessfully() {
         CustomerRequest dataFactory = TestDataFactory.createCustomerRequest();
         CustomerClient client = new CustomerClient();
         Response response = client.createCustomerResponse(dataFactory);
         JsonPath jsonPath = response.jsonPath();
-        System.out.println(jsonPath.getString("createdAt"));
         String postcode = jsonPath.getMap("address").get("postCode").toString();
         String firstline = jsonPath.getMap("address").get("firstLine").toString();
-        id=Integer.parseInt(jsonPath.get("id"));
-        System.out.println(id);
+        id = Integer.parseInt(jsonPath.get("id"));
+        System.out.println("id in POST call: " + id);
         response
                 .then()
                 .statusCode(201)
@@ -35,6 +35,10 @@ public class CustomerPOST {
                 .header("x-powered-by", "Express")
                 .body("address.postCode", equalTo(postcode))
                 .body("address.firstLine", equalTo(firstline))
-                .body("status",equalTo("ACTIVE"));
+                .body("status", equalTo("ACTIVE"));
+    }
+
+    public static int getId() {
+        return id;
     }
 }

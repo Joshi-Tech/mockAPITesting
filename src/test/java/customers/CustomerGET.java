@@ -6,6 +6,7 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.testng.annotations.Test;
 
+import static customers.CustomerPOST.getId;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CustomerGET {
@@ -27,9 +28,12 @@ public class CustomerGET {
     @Test
     public void getSingleCustomer() {
         CustomerClient client = new CustomerClient();
-        Response response = client.getSingleCustomerResponse(9);
+        Response response = client.getSingleCustomerResponse(getId());
+
         JsonPath jsonPath = response.jsonPath();
+        System.out.println(jsonPath.getString("id"));
         String createdAt = jsonPath.getString("createdAt");
+        System.out.println("id in GET call: "+getId());
         response
                 .then()
                 .statusCode(200)

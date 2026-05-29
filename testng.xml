@@ -7,8 +7,8 @@
             <class name="customers.CustomerGET"/>
             <class name="customers.CustomerPUT"/>
             <class name="customers.CustomerPATCH"/>
-            <class name="customers.CustomerDELETE"/>
             <class name="CustomerSchemaValidation"/>
+            <class name="customers.CustomerDEL"/>
         </classes>
     </test>
 </suite>

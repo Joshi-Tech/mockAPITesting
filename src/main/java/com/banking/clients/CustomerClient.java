@@ -31,18 +31,18 @@ public class CustomerClient {
                 .get(ConfigReader.getProperty("base.url") + ApiEndpoints.CUSTOMER);
     }
 
-    public Response updateACustomer(CustomerRequest request) {
+    public Response updateACustomer(CustomerRequest request, int id) {
         return given()
-                .pathParam("id", 2)
+                .pathParam("id", id)
                 .spec(RequestSpecFactory.getRequestSpecification())
                 .body(request)
                 .when()
                 .put(ConfigReader.getProperty("base.url") + ApiEndpoints.CUSTOMER);
     }
 
-    public Response updateACustomerDetailsPartially(CustomerRequest request) {
+    public Response updateACustomerDetailsPartially(CustomerRequest request, int id) {
         return given()
-                .pathParam("id", 3)
+                .pathParam("id", id)
                 .spec(RequestSpecFactory.getRequestSpecification())
                 .body(request)
                 .when()

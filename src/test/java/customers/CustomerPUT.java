@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import utils.utils.TestDataFactory;
 
+import static customers.CustomerPOST.getId;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CustomerPUT {
@@ -16,11 +17,12 @@ public class CustomerPUT {
     public static void customerUpdate() {
         CustomerRequest request = TestDataFactory.createCustomerRequest();
         CustomerClient client = new CustomerClient();
-        Response response = client.updateACustomer(request);
+        Response response = client.updateACustomer(request, getId());
         JsonPath jsonPath = response.jsonPath();
         String createdAt = jsonPath.getString("createdAt");
         String postcode = jsonPath.getString("address.postCode");
         String firstLine = jsonPath.getString("address.firstLine");
+        System.out.println("id in PUT call: "+ getId());
         response
                 .then()
                 .statusCode(200)

@@ -8,6 +8,7 @@ import io.restassured.response.Response;
 import org.testng.annotations.Test;
 import utils.utils.TestDataFactory;
 
+import static customers.CustomerPOST.getId;
 import static org.hamcrest.Matchers.equalTo;
 
 public class CustomerPATCH {
@@ -17,13 +18,12 @@ public class CustomerPATCH {
 
         CustomerRequest request = TestDataFactory.customerPartialUpdate("customer.detailChanged");
         CustomerClient client = new CustomerClient();
-        Response response = client.updateACustomerDetailsPartially(request);
+        Response response = client.updateACustomerDetailsPartially(request, getId());
         JsonPath jsonPath = response.jsonPath();
         String createdAt = jsonPath.getString("createdAt");
         String postcode = jsonPath.getString("address.postCode");
         String firstLine = jsonPath.getString("address.firstLine");
-        System.out.println(jsonPath.getString("email"));
-        System.out.println(response.prettyPrint());
+        System.out.println("id in PATCH call: "+getId());
         response
                 .then()
                 .statusCode(200)
